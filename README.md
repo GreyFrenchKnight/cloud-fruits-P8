@@ -1,28 +1,25 @@
-# cloud-fruits-P8 P8 Déployez un modèle dans le cloud
+# cloud-fruits-P8 Déployez un modèle dans le cloud
 Vous êtes Data Scientist dans une très jeune start-up de l'AgriTech, nommée  "Fruits!", qui cherche à proposer des solutions innovantes pour la récolte des fruits.
 
 * Exemples
-https://github.com/nsaintgeours/sparkyfruit
-https://github.com/AdamVincent90/SimpleCNN
+** https://github.com/nsaintgeours/sparkyfruit
+** https://github.com/AdamVincent90/SimpleCNN
 
 * Documentations
-https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox
+** https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox
+** https://phoenixnap.com/kb/install-spark-on-ubuntu
 
-## Fonctionnement en local (sur mon PC)
-
+## I. Fonctionnement en local (sur mon PC)
 ### Installation d'Ubuntu / VirtualBox
 https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview
 #### Aperçu
 * Télécharger une image Ubuntu Image (https://ubuntu.com/download/desktop/thank-you?version=22.04&architecture=amd64)
-Ubuntu 22.04 LTS, The Jammy Jellyfish (la méduse chanceuse), sorti le 21 avril 2022, soutenu jusqu'en Avril 2027
+** Ubuntu 22.04 LTS, The Jammy Jellyfish (la méduse chanceuse), sorti le 21 avril 2022, soutenu jusqu'en Avril 2027
 * Téléchargez et installez VirtualBox (https://www.virtualbox.org/wiki/Downloads)
 * Une fois l'installation terminée, exécutez VirtualBox.
-
 #### Créer une nouvelle machine virtuelle
-Type: Linux
-Version: Ubuntu (64-bit)
-8Gb RAM
-100 Go vdi disk
+** Type: Linux, Version: Ubuntu (64-bit), 8Gb RAM, 100 Go vdi disk
+![import pyspark](images/import pyspark.png)
 
 #### Installer votre image
 https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#3-install-your-image
