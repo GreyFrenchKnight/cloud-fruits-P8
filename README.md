@@ -2,24 +2,23 @@
 Vous êtes Data Scientist dans une très jeune start-up de l'AgriTech, nommée  "Fruits!", qui cherche à proposer des solutions innovantes pour la récolte des fruits.
 
 * Exemples
-** https://github.com/nsaintgeours/sparkyfruit
-** https://github.com/AdamVincent90/SimpleCNN
+* https://github.com/nsaintgeours/sparkyfruit
+* https://github.com/AdamVincent90/SimpleCNN
 
 * Documentations
-** https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox
-** https://phoenixnap.com/kb/install-spark-on-ubuntu
+* https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox
+* https://phoenixnap.com/kb/install-spark-on-ubuntu
 
 ## I. Fonctionnement en local (sur mon PC)
 ### Installation d'Ubuntu / VirtualBox
 https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview
 #### Aperçu
 * Télécharger une image Ubuntu Image (https://ubuntu.com/download/desktop/thank-you?version=22.04&architecture=amd64)
-** Ubuntu 22.04 LTS, The Jammy Jellyfish (la méduse chanceuse), sorti le 21 avril 2022, soutenu jusqu'en Avril 2027
+* Ubuntu 22.04 LTS, The Jammy Jellyfish (la méduse chanceuse), sorti le 21 avril 2022, soutenu jusqu'en Avril 2027
 * Téléchargez et installez VirtualBox (https://www.virtualbox.org/wiki/Downloads)
 * Une fois l'installation terminée, exécutez VirtualBox.
 #### Créer une nouvelle machine virtuelle
-** Type: Linux, Version: Ubuntu (64-bit), 8Gb RAM, 100 Go vdi disk
-![import_pyspark](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/c0fb6c4d13afda42b969b155ba663eb755863a5b/images/import%20pyspark.png)
+* Type: Linux, Version: Ubuntu (64-bit), 8Gb RAM, 100 Go vdi disk
 
 #### Installer votre image
 https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#3-install-your-image
@@ -68,37 +67,36 @@ sudo apt-get install scala
 pip3 install py4j
 ```
 
-#### Installation de Spark
-https://phoenixnap.com/kb/install-spark-on-ubuntu
-Extraire le fichier téléchargé Spark qui se trouve dans le dossier '/home'
+#### Installation de Spark (https://phoenixnap.com/kb/install-spark-on-ubuntu)
+* Extraire le fichier téléchargé Spark qui se trouve dans le dossier '/home'
 ```
 sudo tar -zxvf spark-3.2.1-bin-hadoop3.2.tgz
 sudo mv spark-3.2.1-bin-hadoop3.2 /opt/spark
 ```
-Utilisez la commande echo pour ajouter ces trois lignes à .profile :
+* Utilisez la commande echo pour ajouter ces trois lignes à .profile :
 ```
 echo "export SPARK_HOME=/opt/spark" >> ~/.profile
 echo "export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin" >> ~/.profile
 echo "export PYSPARK_PYTHON=/usr/bin/python3" >> ~/.profile
 ```
-Il faut autoriser l'accès à l'environnement spark :
+* Il faut autoriser l'accès à l'environnement spark :
 ```
 sudo chmod 777 spark-3.2.1-bin-hadoop3.2
 ```
-La configuration SPARK est prête. Il est possible de vérifier l'environnement spark via le terminal :
+* La configuration SPARK est prête. Il est possible de vérifier l'environnement spark via le terminal :
 ```
 cd spark-3.2.1-bin-hadoop3.2/python/
 python3
-> import pyspark
 ```
+![import_pyspark](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/c0fb6c4d13afda42b969b155ba663eb755863a5b/images/import%20pyspark.png)
 
-Configurer l'environnement de drivers pour Jupyter Notebook pour fonctionner dans l'environnement SPARK pour utiliser le package pyspark :
+* Configurer l'environnement de drivers pour Jupyter Notebook pour fonctionner dans l'environnement SPARK pour utiliser le package pyspark :
 ```
 export PYSPARK_DRIVER_PYTHON=”jupyter”
 export PYSPARK_DRIVER_PYTHON_OPTS=”notebook”
 export PYSPARK_PYTHON=python3
 ```
-Il faut également vérifier l'environnement spark via l'import dans Jupyter Notebook.
+* Il faut également vérifier l'environnement spark via l'import dans Jupyter Notebook.
 
-### Copie des fichiers sur la VM
+### Copie des fichiers sur la VM (https://unix.stackexchange.com/questions/16199/how-to-transfer-files-from-windows-to-ubuntu-on-virtualbox)
 * Copie des dossiers de Training/Test dans le dossier partagé VirtualBox
