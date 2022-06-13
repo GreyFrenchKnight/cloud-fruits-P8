@@ -19,7 +19,7 @@ https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-usin
 * Une fois l'installation terminée, exécutez VirtualBox.
 #### Créer une nouvelle machine virtuelle
 ** Type: Linux, Version: Ubuntu (64-bit), 8Gb RAM, 100 Go vdi disk
-![import pyspark](images/import pyspark.png)
+![import_pyspark](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/c0fb6c4d13afda42b969b155ba663eb755863a5b/images/import%20pyspark.png)
 
 #### Installer votre image
 https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#3-install-your-image
