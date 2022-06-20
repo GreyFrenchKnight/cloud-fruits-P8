@@ -6,6 +6,7 @@ Vous êtes Data Scientist dans une très jeune start-up de l'AgriTech, nommée  
 * https://github.com/AdamVincent90/SimpleCNN
 * https://github.com/Horea94/Fruit-Images-Dataset
 
+
 * Documentations :
 * Installation Ubuntu VirtualBox https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox
 * Spark et Jupyter Notebook https://python.plainenglish.io/apache-spark-using-jupyter-in-linux-installation-and-setup-b2cacc6c7701
@@ -15,6 +16,7 @@ Vous êtes Data Scientist dans une très jeune start-up de l'AgriTech, nommée  
 * Exemples Spark https://github.com/spark-examples/pyspark-examples
 * AWS S3 access keys https://medium.com/@shamnad.p.s/how-to-create-an-s3-bucket-and-aws-access-key-id-and-secret-access-key-for-accessing-it-5653b6e54337
 * Spark user defined class broadcast https://stackoverflow.com/questions/43042241/broadcast-a-user-defined-class-in-spark
+
 
 ## I. Fonctionnement en local (sur mon PC)
 ### Installation d'Ubuntu / VirtualBox
@@ -112,7 +114,7 @@ echo "export PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser --port=8889'" >> 
 * Un fichier output.csv ou output.parquet est généré, il contient les features de chaque image, prêts à être envoyé dans une couche de classification pour prédire le type de fruit.
 
 
-## Création d'un espace de stockage S3 sur AWS
+## II. Création d'un espace de stockage S3 sur AWS
 J'ai copié le jeu de données Fruits 360 Dataset sur un espace de stockage S3 lié à mon compte AWS :
 
 * création d'un bucket via la console AWS en ligne : cloud-fruits-p8-bucket
@@ -142,3 +144,6 @@ Note: ces ajouts ne sont nécessaires que pour le script run_from_image_df.py. I
 * Création d'une SparkSession, lecture des images du bucket cloud-fruits-p8-bucket et application de l'encodage avant de les traiter avec le modèle CNN Transfer Learning sans la dernière couche.
 * Un fichier output.csv ou output.parquet est généré, il contient les features de chaque image, prêts à être envoyé dans une couche de classification pour prédire le type de fruit.
 
+## III. Création d'une image EC2 sur AWS
+### Installation des dépendances (Pip, Python3, Jupyter Notebook, Spark, Librairies annexes)
+blabla
