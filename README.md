@@ -15,6 +15,7 @@ Vous êtes Data Scientist dans une très jeune start-up de l'AgriTech, nommée  
 * Exemples Spark https://github.com/spark-examples/pyspark-examples
 * AWS S3 access keys https://medium.com/@shamnad.p.s/how-to-create-an-s3-bucket-and-aws-access-key-id-and-secret-access-key-for-accessing-it-5653b6e54337
 * Spark user defined class broadcast https://stackoverflow.com/questions/43042241/broadcast-a-user-defined-class-in-spark
+* Torchvision & Transfer Learning https://getpocket.com/fr/read/2721181304
 
 ## I. Fonctionnement en local (sur mon PC)
 ### Installation d'Ubuntu / VirtualBox
@@ -125,12 +126,11 @@ L'environnement est complètement installé. Jupyter Nootebook fonctionne avec P
 J'ai copié le jeu de données Fruits 360 Dataset sur un espace de stockage S3 lié à mon compte AWS :
 
 * création d'un bucket via la console AWS en ligne : cloud-fruits-p8-bucket
-* création d'un utilisateur S3 via la console AWS en ligne
+![bucket_folders](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/c0fb6c4d13afda42b969b155ba663eb755863a5b/images/import%20pyspark.png)
 * enregistrement sur mon PC d'un fichier contenant les clés d'accès à mon stockage S3 : voir fichier ~/.aws/credentials
-virtual private cloud (VPC)
 
 ### Copie des fichiers sur S3 (SDK boto3 ou API S3a)
-* Copie des dossiers de Training/Test dans le bucket 
+* Copie des dossiers de Training dans le bucket 
 
 ### Configuration de Spark en local pour accéder à S3
 Il faut éditer la configuration de Spark pour permettre l'accès aux données stockées sur AWS S3 directement via Spark / Hadoop
@@ -139,11 +139,18 @@ Pour ce faire, on se rend dans le dossier /opt/spark/conf sur la machine virtuel
 * copier le fichier spark-defaults.conf.template vers un nouveau fichier spark-defaults.conf
 * éditer le fichier spark-defaults.conf en y ajoutant les lignes suivantes (les clés AWS S3 sont disponibles sur ma console AWS en ligne) :
 ```
-spark.jars.packages             com.amazonaws:aws-java-sdk-bundle:1.11.901,org.apache.hadoop:hadoop-aws:-3.3.1
+spark.jars.packages             com.amazonaws:aws-java-sdk-bundle:1.11.375,org.apache.hadoop:hadoop-aws:3.2.0
 spark.hadoop.fs.s3a.access.key  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 spark.hadoop.fs.s3a.secret.key  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 spark.hadoop.fs.s3a.endpoint    s3.eu-west-3.amazonaws.com
 spark.hadoop.fs.s3a.impl        org.apache.hadoop.fs.s3a.S3AFileSystem
+```
+
+* Pour une utilisation avec le SDK boto3, je créé un fichier contenant les clés d'accès à mon stockage S3 : voir fichier ~/.aws/credentials :
+```
+[default]
+aws_access_key_id=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+aws_secret_access_key=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 ### Mise à jour du code dans un notebook PySpark pour lire les fichiers sur un bucket S3 (SDK boto3 ou API S3a)
