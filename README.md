@@ -1,13 +1,12 @@
 # cloud-fruits-P8 Déployez un modèle dans le cloud
 Vous êtes Data Scientist dans une très jeune start-up de l'AgriTech, nommée  "Fruits!", qui cherche à proposer des solutions innovantes pour la récolte des fruits.
 
-* Exemples Github :
+## Exemples Github :
 * https://github.com/nsaintgeours/sparkyfruit
 * https://github.com/AdamVincent90/SimpleCNN
 * https://github.com/Horea94/Fruit-Images-Dataset
 
-
-* Documentations :
+## Documentations :
 * Installation Ubuntu VirtualBox https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox
 * Spark et Jupyter Notebook https://python.plainenglish.io/apache-spark-using-jupyter-in-linux-installation-and-setup-b2cacc6c7701
 * Spark et Jupyter Notebookhttps://www.codeitbro.com/install-pyspark-on-ubuntu-with-jupyter-notebook/
@@ -17,15 +16,16 @@ Vous êtes Data Scientist dans une très jeune start-up de l'AgriTech, nommée  
 * AWS S3 access keys https://medium.com/@shamnad.p.s/how-to-create-an-s3-bucket-and-aws-access-key-id-and-secret-access-key-for-accessing-it-5653b6e54337
 * Spark user defined class broadcast https://stackoverflow.com/questions/43042241/broadcast-a-user-defined-class-in-spark
 
-
 ## I. Fonctionnement en local (sur mon PC)
 ### Installation d'Ubuntu / VirtualBox
 https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview
+
 #### Aperçu
 * Télécharger une image Ubuntu Image (https://ubuntu.com/download/desktop/thank-you?version=22.04&architecture=amd64)
 * Ubuntu 22.04 LTS, The Jammy Jellyfish (la méduse chanceuse), sorti le 21 avril 2022, soutenu jusqu'en Avril 2027
 * Téléchargez et installez VirtualBox (https://www.virtualbox.org/wiki/Downloads)
 * Une fois l'installation terminée, exécutez VirtualBox.
+
 #### Créer une nouvelle machine virtuelle
 * Type: Linux, Version: Ubuntu (64-bit), 8Gb RAM, 100 Go vdi disk
 
@@ -127,23 +127,23 @@ virtual private cloud (VPC)
 
 ### Configuration de Spark en local
 Il faut éditer la configuration de Spark pour permettre l'accès aux données stockées sur AWS S3 directement via Spark / Hadoop
-Note: le second point n'est nécessaire que pour le script run_from_image_df.py. Il n'est pas nécessaire pour le script run_from_image_keys.py car celui-ci utilise la librairie Python boto3 pour accèder aux données sur AWS S3.
-
 Pour ce faire, on se rend dans le dossier /opt/spark/conf sur la machine virtuelle Ubuntu.
 
 * copier le fichier spark-defaults.conf.template vers un nouveau fichier spark-defaults.conf
 * éditer le fichier spark-defaults.conf en y ajoutant les lignes suivantes (les clés AWS S3 sont disponibles sur ma console AWS en ligne) :
+```
 spark.jars.packages             com.amazonaws:aws-java-sdk-bundle:1.11.901,org.apache.hadoop:hadoop-aws:-3.3.1
 spark.hadoop.fs.s3a.access.key  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 spark.hadoop.fs.s3a.secret.key  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 spark.hadoop.fs.s3a.endpoint    s3.eu-west-3.amazonaws.com
 spark.hadoop.fs.s3a.impl        org.apache.hadoop.fs.s3a.S3AFileSystem
-Note: ces ajouts ne sont nécessaires que pour le script run_from_image_df.py. Il ne sont pas nécessaires pour le script run_from_image_keys.py car celui-ci utilise la librairie Python boto3 pour accèder aux données sur AWS S3.
+```
 
 ### Mise à jour du code dans un notebook PySpark pour lire les fichiers sur un bucket S3 (SDK boto3 ou API S3a)
 * Création d'une SparkSession, lecture des images du bucket cloud-fruits-p8-bucket et application de l'encodage avant de les traiter avec le modèle CNN Transfer Learning sans la dernière couche.
 * Un fichier output.csv ou output.parquet est généré, il contient les features de chaque image, prêts à être envoyé dans une couche de classification pour prédire le type de fruit.
 
 ## III. Création d'une image EC2 sur AWS
+
 ### Installation des dépendances (Pip, Python3, Jupyter Notebook, Spark, Librairies annexes)
 blabla
