@@ -104,7 +104,14 @@ python3
 echo "export PYSPARK_DRIVER_PYTHON='jupyter'" >> ~/.bashrc
 echo "export PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser --port=8889'" >> ~/.bashrc
 ```
-* Il faut également vérifier l'environnement spark via l'import dans Jupyter Notebook.
+* Il faut également vérifier l'environnement spark via l'import dans Jupyter Notebook. Dans un terminal : 
+```
+> pyspark
+```
+* La ligne de commande pyspark lance Jupyter Notebook.
+* Dans un Notebook, lancer l'import de spark et constater que la ligne de commande fonctionne.
+
+L'environnement est complètement installé. Jupyter Nootebook fonctionne avec PySpark.
 
 ### Copie des fichiers sur la VM (https://unix.stackexchange.com/questions/16199/how-to-transfer-files-from-windows-to-ubuntu-on-virtualbox)
 * Copie des dossiers de Training/Test dans le dossier partagé VirtualBox
@@ -125,7 +132,7 @@ virtual private cloud (VPC)
 ### Copie des fichiers sur S3 (SDK boto3 ou API S3a)
 * Copie des dossiers de Training/Test dans le bucket 
 
-### Configuration de Spark en local
+### Configuration de Spark en local pour accéder à S3
 Il faut éditer la configuration de Spark pour permettre l'accès aux données stockées sur AWS S3 directement via Spark / Hadoop
 Pour ce faire, on se rend dans le dossier /opt/spark/conf sur la machine virtuelle Ubuntu.
 
