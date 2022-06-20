@@ -126,7 +126,7 @@ L'environnement est complètement installé. Jupyter Nootebook fonctionne avec P
 J'ai copié le jeu de données Fruits 360 Dataset sur un espace de stockage S3 lié à mon compte AWS :
 
 * création d'un bucket via la console AWS en ligne : cloud-fruits-p8-bucket
-![bucket_folders](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/c0fb6c4d13afda42b969b155ba663eb755863a5b/images/import%20pyspark.png)
+![bucket_folders](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/6aed173d6091b5fc1b22f210bcaea1d2eb2ab337/images/s3-cloud-fruits-p8-bucket.PNG)
 * enregistrement sur mon PC d'un fichier contenant les clés d'accès à mon stockage S3 : voir fichier ~/.aws/credentials
 
 ### Copie des fichiers sur S3 (SDK boto3 ou API S3a)
