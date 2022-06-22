@@ -23,10 +23,10 @@
 https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview
 
 #### Aperçu
-> Télécharger une image Ubuntu Image (https://ubuntu.com/download/desktop/thank-you?version=22.04&architecture=amd64)
-> Ubuntu 22.04 LTS, The Jammy Jellyfish (la méduse chanceuse), sorti le 21 avril 2022, soutenu jusqu'en Avril 2027
-> Téléchargez et installez VirtualBox (https://www.virtualbox.org/wiki/Downloads)
-> Une fois l'installation terminée, exécutez VirtualBox.
+> * Télécharger une image Ubuntu Image (https://ubuntu.com/download/desktop/thank-you?version=22.04&architecture=amd64).
+> Ubuntu 22.04 LTS, The Jammy Jellyfish (la méduse chanceuse), sorti le 21 avril 2022, soutenu jusqu'en Avril 2027.
+> * Téléchargez et installez VirtualBox (https://www.virtualbox.org/wiki/Downloads).
+> * Une fois l'installation terminée, exécutez VirtualBox.
 
 #### Créer une nouvelle machine virtuelle
 * Type: Linux, Version: Ubuntu (64-bit), 8Gb RAM, 100 Go vdi disk
@@ -34,20 +34,20 @@ https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-usin
 #### Installer votre image
 https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#3-install-your-image
 
-> Cliquez sur Démarrer pour lancer la machine virtuelle. Vous serez invité à sélectionner le disque de démarrage.
-> Utilisez l'icône de fichier pour ouvrir le sélecteur de disque optique et cliquez sur Ajouter pour trouver votre fichier.iso
-> Choisissez l'image disque que vous souhaitez utiliser, puis cliquez sur Démarrer dans la fenêtre du disque de démarrage.
-> Le bureau Ubuntu devrait maintenant démarrer et afficher le menu d'installation.
-> Après ce point, vous pouvez suivre le flux d'installation normal pour Ubuntu Desktop. (https://ubuntu.com/tutorials/install-ubuntu-desktop#11-installation-complete)
-> Après le rédemarrage, le système d'opération Ubuntu est installé !
+> * Cliquez sur Démarrer pour lancer la machine virtuelle. Vous serez invité à sélectionner le disque de démarrage.
+> * Utilisez l'icône de fichier pour ouvrir le sélecteur de disque optique et cliquez sur Ajouter pour trouver votre fichier.iso
+> * Choisissez l'image disque que vous souhaitez utiliser, puis cliquez sur Démarrer dans la fenêtre du disque de démarrage.
+> * Le bureau Ubuntu devrait maintenant démarrer et afficher le menu d'installation.
+> * Après ce point, vous pouvez suivre le flux d'installation normal pour Ubuntu Desktop. (https://ubuntu.com/tutorials/install-ubuntu-desktop#11-installation-complete)
+> * Après le rédemarrage, le système d'opération Ubuntu est installé !
 
 #### Modification de la résolution de la fenêtre
-> Remplacez le paramètre Contrôleur graphique par VBoxSVGA et cliquez sur OK (ignorez l'avertissement).
+> * Remplacez le paramètre Contrôleur graphique par VBoxSVGA et cliquez sur OK (ignorez l'avertissement).
 
 #### Installation des ajouts d'invités
-> Insérer le CD depuis le menu de VirtualBox et procéder à l'installation.
-> Revenez au menu Paramètres et redéfinissez le contrôleur graphique sur VMSVGA et Activez l'accélération 3D.
-> Une autre fonctionnalité que cela déverrouille est le presse-papiers partagé, que vous pouvez activer dans Périphériques > Presse-papiers partagé. Cela vous permettra de copier et coller entre vos machines virtuelles et hôtes, utile lorsque vous souhaitez copier des sorties d'un périphérique à l'autre.
+> * Insérer le CD depuis le menu de VirtualBox et procéder à l'installation.
+> * Revenez au menu Paramètres et redéfinissez le contrôleur graphique sur VMSVGA et Activez l'accélération 3D.
+> * Une autre fonctionnalité que cela déverrouille est le presse-papiers partagé, que vous pouvez activer dans Périphériques > Presse-papiers partagé. Cela vous permettra de copier et coller entre vos machines virtuelles et hôtes, utile lorsque vous souhaitez copier des sorties d'un périphérique à l'autre.
 
 ## Installation des dépendances (Pip, Python3, Jupyter Notebook, Spark, Librairies annexes)
 
