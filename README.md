@@ -22,29 +22,34 @@
 ## Installation d'Ubuntu / VirtualBox [Tutoriel](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview)
 
 #### Aperçu
-* Télécharger une image Ubuntu [Site Ubuntu](https://ubuntu.com/download/desktop/thank-you?version=22.04&architecture=amd64).
+* Télécharger une [Image Ubuntu](https://ubuntu.com/download/desktop/thank-you?version=22.04&architecture=amd64).
 * Ubuntu 22.04 LTS, The Jammy Jellyfish (la méduse chanceuse), sorti le 21 avril 2022, soutenu jusqu'en Avril 2027.
 * Téléchargez et installez [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 * Une fois l'installation terminée, exécutez VirtualBox.
 
+
 #### Créer une nouvelle machine virtuelle
 * Type: Linux, Version: Ubuntu (64-bit), 8Gb RAM, 100 Go vdi disk
+
 
 #### Installer votre image [Tutoriel Install Ubuntu/VirutalBox](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#3-install-your-image)
 * Cliquez sur Démarrer pour lancer la machine virtuelle. Vous serez invité à sélectionner le disque de démarrage.
 * Utilisez l'icône de fichier pour ouvrir le sélecteur de disque optique et cliquez sur Ajouter pour trouver votre fichier.iso
 * Choisissez l'image disque que vous souhaitez utiliser, puis cliquez sur Démarrer dans la fenêtre du disque de démarrage.
 * Le bureau Ubuntu devrait maintenant démarrer et afficher le menu d'installation.
-* Après ce point, vous pouvez suivre le flux d'installation normal pour Ubuntu Desktop. (https://ubuntu.com/tutorials/install-ubuntu-desktop#11-installation-complete)
+* Après ce point, vous pouvez [suivre le flux d'installation normal pour Ubuntu Desktop](https://ubuntu.com/tutorials/install-ubuntu-desktop#11-installation-complete).
 * Après le rédemarrage, le système d'opération Ubuntu est installé !
+
 
 #### Modification de la résolution de la fenêtre
 * Remplacez le paramètre Contrôleur graphique par VBoxSVGA et cliquez sur OK (ignorez l'avertissement).
+
 
 #### Installation des ajouts d'invités
 * Insérer le CD depuis le menu de VirtualBox et procéder à l'installation.
 * Revenez au menu Paramètres et redéfinissez le contrôleur graphique sur VMSVGA et Activez l'accélération 3D.
 * Une autre fonctionnalité que cela déverrouille est le presse-papiers partagé, que vous pouvez activer dans Périphériques > Presse-papiers partagé. Cela vous permettra de copier et coller entre vos machines virtuelles et hôtes, utile lorsque vous souhaitez copier des sorties d'un périphérique à l'autre.
+
 
 ## Installation des dépendances (Pip, Python3, Jupyter Notebook, Spark, Librairies annexes)
 
@@ -73,7 +78,6 @@ sudo apt install openjdk-11-jdk
 sudo apt-get install scala
 pip3 install py4j
 ```
-
 #### [Installation de Spark](https://phoenixnap.com/kb/install-spark-on-ubuntu)
 * Extraire le fichier téléchargé Spark qui se trouve dans le dossier '/home'
 ```
@@ -118,8 +122,10 @@ Copie des dossiers de Training/Test dans le dossier partagé VirtualBox
 * Un fichier output.csv ou output.parquet est généré, il contient les features de chaque image, prêts à être envoyé dans une couche de classification pour prédire le type de fruit.
 * consulter le fichier NOM_FICHIER_FULL_LOCAL
 
+
 **Je parviens à exécuter du code spark sur une machine Ubuntu hébergée en local sur VirtualBox qui traite des données hébergées sur la même machine. Un fichier parquet est généré en sortie de process.**
 **Celui-ci contient les features calculées par le CNN Transfer Learning, prêtes à être ingérées par une couche de classification qui permettra de déterminer le type de fruit.**
+
 
 # II. Fonctionnement en local (PySpark/Notebook sur mon PC) avec dataset sur bucket S3
 
@@ -157,8 +163,10 @@ spark.hadoop.fs.s3a.impl        org.apache.hadoop.fs.s3a.S3AFileSystem
 * les fichiers sont déplacés du dossier input_images_to_process vers le dossier input_images_processed
 * cconsulter le fichier NOM_FICHIER_LOCAL_BUCKET_S3
 
+
 **Je parviens à exécuter du code spark sur une machine Ubuntu hébergée en local sur VirtualBox qui traite des données hébergées sur un bucket s3 AWS. Un fichier parquet est généré en sortie de process.**
 **Celui-ci contient les features calculées par le CNN Transfer Learning, prêtes à être ingérées par une couche de classification qui permettra de déterminer le type de fruit.**
+
 
 # III. Fonctionnement EC2 (PySpark/Notebook sur une macbine EC2 sur AWS) avec dataset sur bucket S3
 On souhaite réaliser la même opération mais avec un Ubuntu hébergé sur EC2 qui accède aux données sur S3.
@@ -177,6 +185,7 @@ Voir la description de l'étape du chapitre II.
 * Un fichier output.csv ou output.parquet est généré, il contient les features de chaque image, prêts à être envoyé dans une couche de classification pour prédire le type de fruit.
 * les fichiers sont déplacés du dossier input_images_to_process vers le dossier input_images_processed
 * cconsulter le fichier NOM_FICHIER_EC2_BUCKET_S3
+
 
 **Je parviens à exécuter du code spark sur une machine Ubuntu hébergée sur EC2 AWS qui traite des données hébergées sur un bucket s3 AWS. Un fichier parquet est généré en sortie de process.**
 **Celui-ci contient les features calculées par le CNN Transfer Learning, prêtes à être ingérées par une couche de classification qui permettra de déterminer le type de fruit.**
