@@ -27,10 +27,8 @@
 * Téléchargez et installez [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 * Une fois l'installation terminée, exécutez VirtualBox.
 
-
 #### Créer une nouvelle machine virtuelle
 * Type: Linux, Version: Ubuntu (64-bit), 8Gb RAM, 100 Go vdi disk
-
 
 #### Installer votre image [Tutoriel Install Ubuntu/VirutalBox](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#3-install-your-image)
 * Cliquez sur Démarrer pour lancer la machine virtuelle. Vous serez invité à sélectionner le disque de démarrage.
@@ -40,16 +38,13 @@
 * Après ce point, vous pouvez [suivre le flux d'installation normal pour Ubuntu Desktop](https://ubuntu.com/tutorials/install-ubuntu-desktop#11-installation-complete).
 * Après le rédemarrage, le système d'opération Ubuntu est installé !
 
-
 #### Modification de la résolution de la fenêtre
 * Remplacez le paramètre Contrôleur graphique par VBoxSVGA et cliquez sur OK (ignorez l'avertissement).
-
 
 #### Installation des ajouts d'invités
 * Insérer le CD depuis le menu de VirtualBox et procéder à l'installation.
 * Revenez au menu Paramètres et redéfinissez le contrôleur graphique sur VMSVGA et Activez l'accélération 3D.
 * Une autre fonctionnalité que cela déverrouille est le presse-papiers partagé, que vous pouvez activer dans Périphériques > Presse-papiers partagé. Cela vous permettra de copier et coller entre vos machines virtuelles et hôtes, utile lorsque vous souhaitez copier des sorties d'un périphérique à l'autre.
-
 
 ## Installation des dépendances (Pip, Python3, Jupyter Notebook, Spark, Librairies annexes)
 
@@ -78,6 +73,7 @@ sudo apt install openjdk-11-jdk
 sudo apt-get install scala
 pip3 install py4j
 ```
+
 #### [Installation de Spark](https://phoenixnap.com/kb/install-spark-on-ubuntu)
 * Extraire le fichier téléchargé Spark qui se trouve dans le dossier '/home'
 ```
@@ -122,10 +118,8 @@ Copie des dossiers de Training/Test dans le dossier partagé VirtualBox
 * Un fichier output.csv ou output.parquet est généré, il contient les features de chaque image, prêts à être envoyé dans une couche de classification pour prédire le type de fruit.
 * consulter le fichier NOM_FICHIER_FULL_LOCAL
 
-
 **Je parviens à exécuter du code spark sur une machine Ubuntu hébergée en local sur VirtualBox qui traite des données hébergées sur la même machine. Un fichier parquet est généré en sortie de process.**
 **Celui-ci contient les features calculées par le CNN Transfer Learning, prêtes à être ingérées par une couche de classification qui permettra de déterminer le type de fruit.**
-
 
 # II. Fonctionnement en local (PySpark/Notebook sur mon PC) avec dataset sur bucket S3
 
@@ -150,11 +144,19 @@ Il faut éditer la configuration de Spark pour permettre l'accès aux données s
 * copier le fichier spark-defaults.conf.template vers un nouveau fichier spark-defaults.conf
 * éditer le fichier spark-defaults.conf en y ajoutant les lignes suivantes (les clés AWS S3 sont disponibles sur ma console AWS en ligne) :
 ```
-spark.jars.packages             com.amazonaws:aws-java-sdk-bundle:1.11.375,org.apache.hadoop:hadoop-aws:3.2.0
+spark.jars.packages             com.amazonaws:aws-java-sdk-bundle:1.11.901,org.apache.hadoop:hadoop-aws:3.3.1
 spark.hadoop.fs.s3a.access.key  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 spark.hadoop.fs.s3a.secret.key  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 spark.hadoop.fs.s3a.endpoint    s3.eu-west-3.amazonaws.com
 spark.hadoop.fs.s3a.impl        org.apache.hadoop.fs.s3a.S3AFileSystem
+```
+* J'ai également du modifier certaines versions de jar suite à un problème de classe Java non trouvée [Class org.apache.hadoop.fs.s3a.auth.IAMInstanceCredentialsProvider not found when trying to write data on S3 bucket from Spark](https://stackoverflow.com/questions/71546208/class-org-apache-hadoop-fs-s3a-auth-iaminstancecredentialsprovider-not-found-whe):
+```
+cd /opt/spark/jars
+sudo wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.11.901/aws-java-sdk-bundle-1.11.901.jar
+sudo wget https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.3.1/hadoop-aws-3.3.1.jar
+sudo wget https://repo1.maven.org/maven2/com/google/guava/guava/23.0/guava-23.0.jar
+sudo rm -rf **les anciennes versions de ces jars***
 ```
 
 ## Mise à jour du code dans un notebook PySpark pour lire les fichiers sur un bucket S3 (SDK boto3 ou API S3a)
@@ -163,10 +165,8 @@ spark.hadoop.fs.s3a.impl        org.apache.hadoop.fs.s3a.S3AFileSystem
 * les fichiers sont déplacés du dossier input_images_to_process vers le dossier input_images_processed
 * cconsulter le fichier NOM_FICHIER_LOCAL_BUCKET_S3
 
-
 **Je parviens à exécuter du code spark sur une machine Ubuntu hébergée en local sur VirtualBox qui traite des données hébergées sur un bucket s3 AWS. Un fichier parquet est généré en sortie de process.**
 **Celui-ci contient les features calculées par le CNN Transfer Learning, prêtes à être ingérées par une couche de classification qui permettra de déterminer le type de fruit.**
-
 
 # III. Fonctionnement EC2 (PySpark/Notebook sur une macbine EC2 sur AWS) avec dataset sur bucket S3
 On souhaite réaliser la même opération mais avec un Ubuntu hébergé sur EC2 qui accède aux données sur S3.
@@ -183,9 +183,8 @@ Voir la description de l'étape du chapitre II.
 ## Réutilisation du code dans notebook PySpark pour lire les fichiers sur un bucket S3 (SDK boto3 ou API S3a)
 * Création d'une SparkSession, lecture des images du bucket cloud-fruits-p8-bucket et application de l'encodage avant de les traiter avec le modèle CNN Transfer Learning sans la dernière couche.
 * Un fichier output.csv ou output.parquet est généré, il contient les features de chaque image, prêts à être envoyé dans une couche de classification pour prédire le type de fruit.
-* les fichiers sont déplacés du dossier input_images_to_process vers le dossier input_images_processed
+* les fichiers sont déplacés du dossier input_images_to_process vers le dossier input_images_processed. [Déplacer des fichiers AWS s3 bucket avec boto3](https://medium.com/plusteam/move-and-rename-objects-within-an-s3-bucket-using-boto-3-58b164790b78)
 * cconsulter le fichier NOM_FICHIER_EC2_BUCKET_S3
-
 
 **Je parviens à exécuter du code spark sur une machine Ubuntu hébergée sur EC2 AWS qui traite des données hébergées sur un bucket s3 AWS. Un fichier parquet est généré en sortie de process.**
 **Celui-ci contient les features calculées par le CNN Transfer Learning, prêtes à être ingérées par une couche de classification qui permettra de déterminer le type de fruit.**
