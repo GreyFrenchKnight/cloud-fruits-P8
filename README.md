@@ -170,7 +170,7 @@ sudo rm -rf **les anciennes versions de ces jars***
 * Création d'une SparkSession, lecture des images du bucket cloud-fruits-p8-bucket et application de l'encodage avant de les traiter avec le modèle CNN Transfer Learning sans la dernière couche.
 * Un fichier output.parquet est généré, il contient les features de chaque image, prêts à être envoyé dans une couche de classification pour prédire le type de fruit. Il est stocké dans le dossier output_features_and_images_processed/%Y%m%d-%H%M%S-batch/features_to_classify.
 * les fichiers sont déplacés du dossier input_images_to_process vers le dossier output_features_and_images_processed/%Y%m%d-%H%M%S-batch/images_processed
-* consulter le fichier [P8 PySpark and AWS S3 Bucket Dataset.ipynb](Code/P8 PySpark and AWS S3 Bucket Dataset.ipynb)
+* consulter le fichier [P8 PySpark and AWS S3 Bucket Dataset.ipynb](/Code/P8 PySpark and AWS S3 Bucket Dataset.ipynb)
 
 **Je parviens à exécuter du code spark sur une machine Ubuntu hébergée en local sur VirtualBox qui traite des données hébergées sur un bucket s3 AWS. Un fichier parquet est généré en sortie de process.**
 **Celui-ci contient les features calculées par le CNN Transfer Learning, prêtes à être ingérées par une couche de classification qui permettra de déterminer le type de fruit.**
