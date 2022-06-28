@@ -111,7 +111,11 @@ echo "export PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser --port=8889'" >> 
 **L'environnement est complètement installé. Jupyter Nootebook fonctionne avec PySpark.**
 
 ## [Copie des fichiers sur la VM](https://unix.stackexchange.com/questions/16199/how-to-transfer-files-from-windows-to-ubuntu-on-virtualbox)
-Copie des dossiers de Training/Test dans le dossier partagé VirtualBox
+* Création d'un dossier partagé et montage de ce dossier sur Ubuntu
+```
+sudo mount -t vboxsf Shared_folders_VM_Ubuntu_Spark Shared_folder_Windows
+```
+* Copie des dossiers de Training/Test dans le dossier partagé VirtualBox
 
 ## Développement du code dans un notebook PySpark 
 * Création d'une SparkSession, lecture des images du dossier cloud-fruits-dataset et application de l'encodage avant de les traiter avec le modèle CNN Transfer Learning sans la dernière couche.
@@ -128,6 +132,8 @@ J'ai copié le jeu de données Fruits 360 Dataset sur un espace de stockage S3 l
 
 * création d'un bucket via la console AWS en ligne : cloud-fruits-p8-bucket
 ![bucket_folders](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/6aed173d6091b5fc1b22f210bcaea1d2eb2ab337/images/s3-cloud-fruits-p8-bucket.PNG)
+* création d'un utilisateur S3 via la console AWS en ligne
+![IAM_user](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/6aed173d6091b5fc1b22f210bcaea1d2eb2ab337/images/s3-cloud-fruits-p8-bucket.PNG)
 
 ## Copie des fichiers sur S3 (SDK boto3)
 * enregistrement sur mon PC d'un fichier contenant les clés d'accès à mon stockage S3 : voir fichier ~/.aws/credentials
@@ -136,7 +142,8 @@ J'ai copié le jeu de données Fruits 360 Dataset sur un espace de stockage S3 l
 aws_access_key_id=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 aws_secret_access_key=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
-* Copie des dossiers de Training dans le bucket avec un notebook et SDK boto3
+* Copie des images du dataset de Training dans le bucket avec un notebook et SDK boto3
+[Accès à mon AWS S3 Bucket](https://s3.console.aws.amazon.com/s3/buckets/cloud-fruits-p8-bucket?region=eu-west-3&tab=objects)
 
 ## Configuration de Spark en local pour accéder à S3
 Il faut éditer la configuration de Spark pour permettre l'accès aux données stockées sur AWS S3 directement via Spark / Hadoop.
@@ -163,7 +170,7 @@ sudo rm -rf **les anciennes versions de ces jars***
 * Création d'une SparkSession, lecture des images du bucket cloud-fruits-p8-bucket et application de l'encodage avant de les traiter avec le modèle CNN Transfer Learning sans la dernière couche.
 * Un fichier output.csv ou output.parquet est généré, il contient les features de chaque image, prêts à être envoyé dans une couche de classification pour prédire le type de fruit.
 * les fichiers sont déplacés du dossier input_images_to_process vers le dossier input_images_processed
-* cconsulter le fichier NOM_FICHIER_LOCAL_BUCKET_S3
+* consulter le fichier NOM_FICHIER_LOCAL_BUCKET_S3
 
 **Je parviens à exécuter du code spark sur une machine Ubuntu hébergée en local sur VirtualBox qui traite des données hébergées sur un bucket s3 AWS. Un fichier parquet est généré en sortie de process.**
 **Celui-ci contient les features calculées par le CNN Transfer Learning, prêtes à être ingérées par une couche de classification qui permettra de déterminer le type de fruit.**
@@ -184,7 +191,7 @@ Voir la description de l'étape du chapitre II.
 * Création d'une SparkSession, lecture des images du bucket cloud-fruits-p8-bucket et application de l'encodage avant de les traiter avec le modèle CNN Transfer Learning sans la dernière couche.
 * Un fichier output.csv ou output.parquet est généré, il contient les features de chaque image, prêts à être envoyé dans une couche de classification pour prédire le type de fruit.
 * les fichiers sont déplacés du dossier input_images_to_process vers le dossier input_images_processed. [Déplacer des fichiers AWS s3 bucket avec boto3](https://medium.com/plusteam/move-and-rename-objects-within-an-s3-bucket-using-boto-3-58b164790b78)
-* cconsulter le fichier NOM_FICHIER_EC2_BUCKET_S3
+* consulter le fichier NOM_FICHIER_EC2_BUCKET_S3
 
 **Je parviens à exécuter du code spark sur une machine Ubuntu hébergée sur EC2 AWS qui traite des données hébergées sur un bucket s3 AWS. Un fichier parquet est généré en sortie de process.**
 **Celui-ci contient les features calculées par le CNN Transfer Learning, prêtes à être ingérées par une couche de classification qui permettra de déterminer le type de fruit.**
