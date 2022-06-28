@@ -95,7 +95,7 @@ sudo chmod 777 spark
 cd spark/python/
 python3
 ```
-![import_pyspark](/Images/import pyspark.png)
+![import_pyspark](/Images/import-pyspark.png)
 
 * Configurer l'environnement de drivers pour Jupyter Notebook pour fonctionner dans l'environnement SPARK pour utiliser le package pyspark :
 ```
