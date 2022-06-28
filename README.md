@@ -135,7 +135,7 @@ J'ai copié le jeu de données Fruits 360 Dataset sur un espace de stockage S3 l
 * création d'un bucket via la console AWS en ligne : cloud-fruits-p8-bucket
 ![bucket_folders](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/6aed173d6091b5fc1b22f210bcaea1d2eb2ab337/Images/s3-cloud-fruits-p8-bucket.PNG)
 * création d'un utilisateur S3 via la console AWS en ligne
-![IAM_user](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/69910c78a1ab427aba4b353076d6096f31f2e9a8/Images/IAM-user.PNG)
+![IAM_user](/Images/IAM-user.PNG)
 
 ## Copie des fichiers sur S3 (SDK boto3)
 * enregistrement sur mon PC d'un fichier contenant les clés d'accès à mon stockage S3 : voir fichier ~/.aws/credentials
