@@ -95,13 +95,15 @@ sudo chmod 777 spark
 cd spark/python/
 python3
 ```
-![import_pyspark](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/c0fb6c4d13afda42b969b155ba663eb755863a5b/images/import%20pyspark.png)
+![import_pyspark](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/c0fb6c4d13afda42b969b155ba663eb755863a5b/Images/import%20pyspark.png)
 
 * Configurer l'environnement de drivers pour Jupyter Notebook pour fonctionner dans l'environnement SPARK pour utiliser le package pyspark :
 ```
 echo "export PYSPARK_DRIVER_PYTHON='jupyter'" >> ~/.bashrc
 echo "export PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser --port=8889'" >> ~/.bashrc
 ```
+![ajouts_bashrc](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/e23def03bd74b4bb3c34930d537f3f41ae0b1d20/Images/ajouts-bashrc.PNG)
+
 * Il faut également vérifier l'environnement spark via l'import dans Jupyter Notebook. Dans un terminal : 
 ```
 > pyspark
@@ -131,9 +133,9 @@ sudo mount -t vboxsf Shared_folders_VM_Ubuntu_Spark Shared_folder_Windows
 J'ai copié le jeu de données Fruits 360 Dataset sur un espace de stockage S3 lié à mon compte AWS
 
 * création d'un bucket via la console AWS en ligne : cloud-fruits-p8-bucket
-![bucket_folders](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/6aed173d6091b5fc1b22f210bcaea1d2eb2ab337/images/s3-cloud-fruits-p8-bucket.PNG)
+![bucket_folders](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/6aed173d6091b5fc1b22f210bcaea1d2eb2ab337/Images/s3-cloud-fruits-p8-bucket.PNG)
 * création d'un utilisateur S3 via la console AWS en ligne
-![IAM_user](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/69910c78a1ab427aba4b353076d6096f31f2e9a8/images/IAM-user.PNG)
+![IAM_user](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/69910c78a1ab427aba4b353076d6096f31f2e9a8/Images/IAM-user.PNG)
 
 ## Copie des fichiers sur S3 (SDK boto3)
 * enregistrement sur mon PC d'un fichier contenant les clés d'accès à mon stockage S3 : voir fichier ~/.aws/credentials
