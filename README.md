@@ -7,9 +7,9 @@
 * [Fruit-Images-Dataset de Horea94](https://github.com/Horea94/Fruit-Images-Dataset)
 
 #### Documentations :
-* VirtualBox, Ubuntu
+* VirtualBox, Ubuntu :
 * [Installation Ubuntu VirtualBox](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox)
-* Spark, Torch, TorchVision, CNN, Transfer Learning
+* Spark, Torch, TorchVision, CNN, Transfer Learning :
 * [Spark et Jupyter Notebook](https://python.plainenglish.io/apache-spark-using-jupyter-in-linux-installation-and-setup-b2cacc6c7701)
 * [Spark et Jupyter Notebook](https://www.codeitbro.com/install-pyspark-on-ubuntu-with-jupyter-notebook/)
 * [Spark et Jupyter Notebook](https://www.bmc.com/blogs/jupyter-notebooks-apache-spark/)
@@ -17,10 +17,10 @@
 * [Exemples Spark](https://github.com/spark-examples/pyspark-examples)
 * [Spark user defined class broadcast](https://stackoverflow.com/questions/43042241/broadcast-a-user-defined-class-in-spark)
 * [Torchvision & Transfer Learning](https://getpocket.com/fr/read/2721181304)
-* AWS
+* AWS :
 * [AWS S3 access keys](https://medium.com/@shamnad.p.s/how-to-create-an-s3-bucket-and-aws-access-key-id-and-secret-access-key-for-accessing-it-5653b6e54337)
-* EC2, SSH
-* [Change the instance type of an existing EBS-backed instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-resize.html
+* EC2, SSH :
+* [Change the instance type of an existing EBS backed instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-resize.html
 * [Installer OpenSSH sur Windows](https://docs.microsoft.com/fr-fr/windows-server/administration/openssh/openssh_install_firstuse)
 
 # I. Fonctionnement en local (PySpark/Notebook/Dataset sur mon PC)
