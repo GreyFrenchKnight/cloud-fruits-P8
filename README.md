@@ -7,15 +7,21 @@
 * [Fruit-Images-Dataset de Horea94](https://github.com/Horea94/Fruit-Images-Dataset)
 
 #### Documentations :
+* VirtualBox, Ubuntu
 * [Installation Ubuntu VirtualBox](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox)
+* Spark, Torch, TorchVision, CNN, Transfer Learning
 * [Spark et Jupyter Notebook](https://python.plainenglish.io/apache-spark-using-jupyter-in-linux-installation-and-setup-b2cacc6c7701)
 * [Spark et Jupyter Notebook](https://www.codeitbro.com/install-pyspark-on-ubuntu-with-jupyter-notebook/)
 * [Spark et Jupyter Notebook](https://www.bmc.com/blogs/jupyter-notebooks-apache-spark/)
 * [Spark et Jupyter Notebook](https://github.com/ruslanmv/Tutorial-of-Pyspark-with-Jupyter-Notebook)
 * [Exemples Spark](https://github.com/spark-examples/pyspark-examples)
-* [AWS S3 access keys](https://medium.com/@shamnad.p.s/how-to-create-an-s3-bucket-and-aws-access-key-id-and-secret-access-key-for-accessing-it-5653b6e54337)
 * [Spark user defined class broadcast](https://stackoverflow.com/questions/43042241/broadcast-a-user-defined-class-in-spark)
 * [Torchvision & Transfer Learning](https://getpocket.com/fr/read/2721181304)
+* AWS
+* [AWS S3 access keys](https://medium.com/@shamnad.p.s/how-to-create-an-s3-bucket-and-aws-access-key-id-and-secret-access-key-for-accessing-it-5653b6e54337)
+* EC2, SSH
+* [Change the instance type of an existing EBS-backed instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-resize.html
+* [Installer OpenSSH sur Windows](https://docs.microsoft.com/fr-fr/windows-server/administration/openssh/openssh_install_firstuse)
 
 # I. Fonctionnement en local (PySpark/Notebook/Dataset sur mon PC)
 
@@ -181,7 +187,41 @@ sudo rm -rf **les anciennes versions de ces jars***
 On souhaite réaliser la même opération mais avec un Ubuntu hébergé sur EC2 qui accède aux données sur S3.
 
 ## Création d'une image EC2 sur AWS
-blabla
+* Création d'une image EC2 Ubuntu 22.04 LTS à l'aide de la console EC2 AWS.
+![lancer-instance-ec2](/Images/ec2-new-instance.PNG)
+* Type t2.medium et paire de clés pem
+![lancer-instance-ec2-type-keys](/Images/ec2-new-instance-type-keys.PNG)
+* Résumé de la configuration avant le lancement de l'instance
+![lancer-instance-ec2-summary](/Images/ec2-new-instance-summary.PNG)
+
+## Connexion avec [OpenSSH](https://docs.microsoft.com/fr-fr/windows-server/administration/openssh/openssh_install_firstuse) et paire de clés sécurisées [Connect to your Linux instance using an SSH client](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html)
+* Vérifier si les composants OpenSSH Client et OpenSSH Server sont installés dans "Paramètres", sélectionnez "Applications > Applications et fonctionnalités", puis "Fonctionnalités facultatives", sinon les installer.
+* Pour démarrer et configurer OpenSSH Server pour une première utilisation, ouvrez PowerShell en tant qu’administrateur, puis exécutez les commandes suivantes pour démarrer sshd service :
+```
+# Start the sshd service
+Start-Service sshd
+
+# OPTIONAL but recommended:
+Set-Service -Name sshd -StartupType 'Automatic'
+
+# Confirm the Firewall rule is configured. It should be created automatically by setup. Run the following to verify
+if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {
+    Write-Output "Firewall Rule 'OpenSSH-Server-In-TCP' does not exist, creating it..."
+    New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+} else {
+    Write-Output "Firewall rule 'OpenSSH-Server-In-TCP' has been created and exists."
+}
+```
+* Depuis un terminal :
+```
+> ssh -i /path/my-key-pair.pem my-instance-user-name@my-instance-public-dns-name
+```
+* Dans mon cas :
+```
+# > ssh -i C:/Users/disch/Documents/OpenClassrooms/Workspace/20220606_Projet_8_Deployez_un_modele_dans_le_cloud/Projet_8/paire-cles-cloud-fruits-P8.pem ubuntu@35.180.41.4
+```
+![connect-ec2-ssh](/Images/ec2-ssh-connection-cleaned.png)
+* Création d'un instantané de l'état initial du disque de cette machine EC2 avant de procéder aux installations et à la configuration.
 
 ## Installation des dépendances (Pip, Python3, Jupyter Notebook, Spark, Librairies annexes)
 Voir la description de l'étape du chapitre II.
