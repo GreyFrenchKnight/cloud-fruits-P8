@@ -20,7 +20,7 @@
 * AWS :
 * [AWS S3 access keys](https://medium.com/@shamnad.p.s/how-to-create-an-s3-bucket-and-aws-access-key-id-and-secret-access-key-for-accessing-it-5653b6e54337)
 * EC2, SSH :
-* [Change the instance type of an existing EBS backed instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-resize.html
+* [Change the instance type of an existing EBS backed instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-resize.html)
 * [Installer OpenSSH sur Windows](https://docs.microsoft.com/fr-fr/windows-server/administration/openssh/openssh_install_firstuse)
 
 # I. Fonctionnement en local (PySpark/Notebook/Dataset sur mon PC)
