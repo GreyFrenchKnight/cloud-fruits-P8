@@ -18,10 +18,13 @@
 * [Spark user defined class broadcast](https://stackoverflow.com/questions/43042241/broadcast-a-user-defined-class-in-spark)
 * [Torchvision & Transfer Learning](https://getpocket.com/fr/read/2721181304)
 * AWS :
-* [AWS S3 access keys](https://medium.com/@shamnad.p.s/how-to-create-an-s3-bucket-and-aws-access-key-id-and-secret-access-key-for-accessing-it-5653b6e54337)
+* [AWS S3 access keys](https://medium.com/@shamnad.p.s/how-to-create-an-S3-bucket-and-aws-access-key-id-and-secret-access-key-for-accessing-it-5653b6e54337)
 * EC2, SSH :
 * [Change the instance type of an existing EBS backed instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-resize.html)
 * [Installer OpenSSH sur Windows](https://docs.microsoft.com/fr-fr/windows-server/administration/openssh/openssh_install_firstuse)
+* Disk full :
+* [How to increase the AWS Disk Volume (EBS) on EC2 in simple steps for Ubuntu?](https://medium.com/geekculture/how-to-increase-the-aws-disk-volume-ebs-on-ec2-in-simple-steps-for-ubuntu-7c3759468b38)
+* [Unable to growpart because no space left](https://stackoverflow.com/questions/59420015/unable-to-growpart-because-no-space-left)
 
 # I. Fonctionnement en local (PySpark/Notebook/Dataset sur mon PC)
 
@@ -75,12 +78,14 @@ sudo apt-get install scala
 ```
 * Nécessite l'installation de 'Py4J', il permet aux programmes Python s'exécutant dans un interpréteur Python d'accéder dynamiquement aux objets Java dans une machine virtuelle Java :
 ```
-sudo apt install openjdk-11-jdk
-sudo apt-get install scala
 pip3 install py4j
 ```
 
 #### [Installation de Spark](https://phoenixnap.com/kb/install-spark-on-ubuntu)
+* Télécharger l'archive spark/hadoop (wget https://downloads.apache.org/spark/spark-3.2.1/spark-3.2.1-bin-hadoop3.2.tgz)
+```
+wget https://downloads.apache.org/spark/spark-3.2.1/spark-3.2.1-bin-hadoop3.2.tgz
+```
 * Extraire le fichier téléchargé Spark qui se trouve dans le dossier '/home'
 ```
 sudo tar -zxvf spark-3.2.1-bin-hadoop3.2.tgz
@@ -139,7 +144,7 @@ sudo mount -t vboxsf Shared_folders_VM_Ubuntu_Spark Shared_folder_Windows
 J'ai copié le jeu de données Fruits 360 Dataset sur un espace de stockage S3 lié à mon compte AWS
 
 * création d'un bucket via la console AWS en ligne : cloud-fruits-p8-bucket
-![bucket_folders](/Images/s3-cloud-fruits-p8-bucket.PNG)
+![bucket_folders](/Images/S3-cloud-fruits-p8-bucket.PNG)
 * création d'un utilisateur S3 via la console AWS en ligne
 ![IAM_user](/Images/IAM-user.PNG)
 
@@ -151,7 +156,7 @@ aws_access_key_id=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 aws_secret_access_key=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 * Copie des images du dataset de Training dans le bucket avec un notebook et SDK boto3
-[Accès à mon AWS S3 Bucket](https://s3.console.aws.amazon.com/s3/buckets/cloud-fruits-p8-bucket?region=eu-west-3&tab=objects)
+[Accès à mon AWS S3 Bucket](https://S3.console.aws.amazon.com/S3/buckets/cloud-fruits-p8-bucket?region=eu-west-3&tab=objects)
 
 ## Configuration de Spark en local pour accéder à S3
 Il faut éditer la configuration de Spark pour permettre l'accès aux données stockées sur AWS S3 directement via Spark / Hadoop.
@@ -162,7 +167,7 @@ Il faut éditer la configuration de Spark pour permettre l'accès aux données s
 spark.jars.packages             com.amazonaws:aws-java-sdk-bundle:1.11.901,org.apache.hadoop:hadoop-aws:3.3.1
 spark.hadoop.fs.s3a.access.key  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 spark.hadoop.fs.s3a.secret.key  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-spark.hadoop.fs.s3a.endpoint    s3.eu-west-3.amazonaws.com
+spark.hadoop.fs.s3a.endpoint    S3.eu-west-3.amazonaws.com
 spark.hadoop.fs.s3a.impl        org.apache.hadoop.fs.s3a.S3AFileSystem
 ```
 * J'ai également du modifier certaines versions de jar suite à un problème de classe Java non trouvée [Class org.apache.hadoop.fs.s3a.auth.IAMInstanceCredentialsProvider not found when trying to write data on S3 bucket from Spark](https://stackoverflow.com/questions/71546208/class-org-apache-hadoop-fs-s3a-auth-iaminstancecredentialsprovider-not-found-whe):
@@ -180,7 +185,7 @@ sudo rm -rf **les anciennes versions de ces jars***
 * les fichiers sont déplacés du dossier input_images_to_process vers le dossier output_features_and_images_processed/%Y%m%d-%H%M%S-batch/images_processed
 * consulter le fichier [P8 PySpark and AWS S3 Bucket Dataset.ipynb](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/e23def03bd74b4bb3c34930d537f3f41ae0b1d20/Code/P8%20PySpark%20and%20AWS%20S3%20Bucket%20Dataset.ipynb)
 
-**Je parviens à exécuter du code spark sur une machine Ubuntu hébergée en local sur VirtualBox qui traite des données hébergées sur un bucket s3 AWS. Un fichier parquet est généré en sortie de process.**
+**Je parviens à exécuter du code spark sur une machine Ubuntu hébergée en local sur VirtualBox qui traite des données hébergées sur un bucket S3 AWS. Un fichier parquet est généré en sortie de process.**
 **Celui-ci contient les features calculées par le CNN Transfer Learning, prêtes à être ingérées par une couche de classification qui permettra de déterminer le type de fruit.**
 
 # III. Fonctionnement EC2 (PySpark/Notebook sur une macbine EC2 sur AWS) avec dataset sur bucket S3
@@ -224,17 +229,65 @@ if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyCon
 * Création d'un instantané de l'état initial du disque de cette machine EC2 avant de procéder aux installations et à la configuration.
 
 ## Installation des dépendances (Pip, Python3, Jupyter Notebook, Spark, Librairies annexes)
-Voir la description de l'étape du chapitre II.
+* [How to Install Jupyter Notebook on AWS EC2 Instance for Machine Learning and Python scripting](https://medium.com/@awsontop/how-to-install-jupyter-notebook-on-aws-ec2-instance-for-machine-learning-and-python-scripting-10a3dcba3b6e)
+* Installer Anaconda
+* Configurer Jupyter
+* [Générer le mot de passe encrypté](https://stackoverflow.com/a/68467707)
+* Modifier le fichier de configuration 'jupyter/jupyter_notebook_config.py' déjà généré avec le certificat et le mot de passe ci-dessus.
+```
+> nano .jupyter/jupyter_notebook_config.py
+```
+* Aller à la dernière ligne et ajoutez le code ci-dessous :
+```
+c = get_config()
+# Kernel config
+c.IPKernelApp.pylab = 'inline'
+# Notebook config
+c.NotebookApp.certfile = u'/home/ubuntu/certs/jupyterpython1.pem'
+c.NotebookApp.ip = '*'
+c.NotebookApp.open_browser = False
+c.NotebookApp.password = u'sha1:xxx:yyy'
+c.NotebookApp.port = 8888 #same port number as configured in SG setup.
+```
+* Lancement de Jupyter Notebook
+```
+> jupyter notebook --allow-root
+```
+* Accès à Jupyter Notebook avec l'url https://<IP-PUBLIQUE-EC2>:8888/tree et saisi du mot de passe pour se connecter [Mon URL JUPYTER EC2](https://35.180.41.4:8888/tree)
 
 ## Configuration de Spark pour accéder à S3
 Voir la description de l'étape du chapitre II.
+ 
+* Utilisez la commande echo pour ajouter ces lignes à .bashrc :
+```
+echo "export SPARK_HOME=/opt/spark" >> ~/.bashrc
+echo "export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin" >> ~/.bashrc
+echo "export PYTHONPATH=/root/anaconda3/bin/python" >> ~/.bashrc
+```
+
+* Configurer l'environnement de drivers pour Jupyter Notebook pour fonctionner dans l'environnement SPARK pour utiliser le package pyspark :
+```
+echo "export PYSPARK_PYTHON=/root/anaconda3/bin/python" >> ~/.bashrc
+echo "export PYSPARK_DRIVER_PYTHON='jupyter'" >> ~/.bashrc
+echo "export PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser --port=8888'" >> ~/.bashrc
+```
 
 ## Réutilisation du code dans notebook PySpark pour lire les fichiers sur un bucket S3 (SDK boto3 ou API S3a)
+* Upload des fichiers en SCP depuis Windows avec permission d'écriture sur le dossier de destination Ubuntu EC2 :
+```
+mkdir /home/ubuntu/Notebooks
+chmod 755 /home/ubuntu/Notebooks
+scp -i C:/Users/disch/Documents/OpenClassrooms/Workspace/20220606_Projet_8_Deployez_un_modele_dans_le_cloud/Projet_8/paire-cles-cloud-fruits-P8.pem -r "C:/Users/disch/Documents/OpenClassrooms/Workspace/20220606_Projet_8_Deployez_un_modele_dans_le_cloud/Projet_8/Git/cloud-fruits-P8/Code" ubuntu@35.180.41.4:/home/ubuntu/Notebooks/
+
+mkdir /home/ubuntu/fruits-360-dataset
+chmod 755 /home/ubuntu/fruits-360-dataset
+scp -i C:/Users/disch/Documents/OpenClassrooms/Workspace/20220606_Projet_8_Deployez_un_modele_dans_le_cloud/Projet_8/paire-cles-cloud-fruits-P8.pem -r "C:/Users/disch/Documents/OpenClassrooms/Workspace/20220606_Projet_8_Deployez_un_modele_dans_le_cloud/Projet_8/Git/cloud-fruits-P8/Fruits-360-Dataset/LightTraining" ubuntu@35.180.41.4:/home/ubuntu/fruits-360-dataset/LightTraining
+```
 * Création d'une SparkSession, lecture des images du bucket cloud-fruits-p8-bucket et application de l'encodage avant de les traiter avec le modèle CNN Transfer Learning sans la dernière couche.
 * Un fichier output.parquet est généré, il contient les features de chaque image, prêts à être envoyé dans une couche de classification pour prédire le type de fruit. Il est stocké dans le dossier output_features_and_images_processed/%Y%m%d-%H%M%S-batch/features_to_classify.
 * les fichiers sont déplacés du dossier input_images_to_process vers le dossier output_features_and_images_processed/%Y%m%d-%H%M%S-batch/images_processed
 * consulter le fichier [P8 PySpark and AWS S3 Bucket Dataset.ipynb](https://github.com/GreyFrenchKnight/cloud-fruits-P8/blob/e23def03bd74b4bb3c34930d537f3f41ae0b1d20/Code/P8%20PySpark%20and%20AWS%20S3%20Bucket%20Dataset.ipynb)
 
-**Je parviens à exécuter du code spark sur une machine Ubuntu hébergée sur EC2 AWS qui traite des données hébergées sur un bucket s3 AWS. Un fichier parquet est généré en sortie de process.**
+**Je parviens à exécuter du code spark sur une machine Ubuntu hébergée sur EC2 AWS qui traite des données hébergées sur un bucket S3 AWS. Un fichier parquet est généré en sortie de process.**
 **Celui-ci contient les features calculées par le CNN Transfer Learning, prêtes à être ingérées par une couche de classification qui permettra de déterminer le type de fruit.**
 
