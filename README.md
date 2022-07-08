@@ -1,6 +1,11 @@
 # cloud-fruits-P8 Déployez un modèle dans le cloud
 **Vous êtes Data Scientist dans une très jeune start-up de l'AgriTech, nommée  "Fruits!", qui cherche à proposer des solutions innovantes pour la récolte des fruits.**
 
+#### Liens utiles :
+* [AWS EC2 mes instances eu-west-3 Paris](https://eu-west-3.console.aws.amazon.com/ec2/v2/home?region=eu-west-3#Instances:)
+* [AWS S3 mon bucket cloud-fruits-p8-bucket eu-west-3 Paris](https://s3.console.aws.amazon.com/s3/buckets/cloud-fruits-p8-bucket?region=eu-west-3&tab=objects)
+* [AWS EC2 Jupyter Notebook](https://15.188.105.71:8888/tree/Notebooks)
+
 #### Exemples Github :
 * [Application P8 sparkyfruit de nsaintgeours](https://github.com/nsaintgeours/sparkyfruit)
 * [SimpleCNN de AdamVincent90](https://github.com/AdamVincent90/SimpleCNN)
@@ -376,7 +381,7 @@ Jul  4 08:10:01 ip-172-31-38-2 CRON[22929]: (root) CMD (/home/ubuntu/run_noteboo
 **Toutes les 10 minutes, un script python/spark est exécuté par CRON sur une machine Ubuntu hébergée sur EC2 AWS qui traite des données hébergées sur un bucket S3 AWS. Un fichier parquet est généré en sortie de process.**
 **Celui-ci contient les features calculées par le CNN Transfer Learning, prêtes à être ingérées par une couche de classification qui permettra de déterminer le type de fruit.**
 
-* Pour télécharger les fichiers AWS S3 en local Windows :
+#### Télécharger les fichiers AWS S3 en local Windows :
 * [Installer AWS CLI pour Winndows](https://aws.amazon.com/fr/cli/)
 * Configurer :
 ```
@@ -392,5 +397,3 @@ Jul  4 08:10:01 ip-172-31-38-2 CRON[22929]: (root) CMD (/home/ubuntu/run_noteboo
 ```
 > aws s3 cp s3://cloud-fruits-p8-bucket/output_features_and_images_processed/20220706-075016-batch C:\Users\disch\Documents\OpenClassrooms\Workspace\20220606_Projet_8_Deployez_un_modele_dans_le_cloud\Projet_8\Git\cloud-fruits-P8\Output\20220706-075016-batch --recursive
 ```
-
-
