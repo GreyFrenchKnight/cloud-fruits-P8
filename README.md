@@ -9,6 +9,9 @@
 #### Documentations :
 * VirtualBox, Ubuntu :
 * [Installation Ubuntu VirtualBox](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox)
+* [How to View Linux Logs](https://phoenixnap.com/kb/how-to-view-read-linux-log-files)
+* [How to Empty a Log File in Linux](https://linuxhandbook.com/empty-file-linux/)
+* [Linux Basename](https://linuxhandbook.com/basename/)
 * Spark, Torch, TorchVision, CNN, Transfer Learning :
 * [Spark et Jupyter Notebook](https://python.plainenglish.io/apache-spark-using-jupyter-in-linux-installation-and-setup-b2cacc6c7701)
 * [Spark et Jupyter Notebook](https://www.codeitbro.com/install-pyspark-on-ubuntu-with-jupyter-notebook/)
@@ -17,11 +20,14 @@
 * [Exemples Spark](https://github.com/spark-examples/pyspark-examples)
 * [Spark user defined class broadcast](https://stackoverflow.com/questions/43042241/broadcast-a-user-defined-class-in-spark)
 * [Torchvision & Transfer Learning](https://getpocket.com/fr/read/2721181304)
+* [Pyspark: Error executing Jupyter command while running a file using spark-submit](https://stackoverflow.com/questions/46507887/pyspark-error-executing-jupyter-command-while-running-a-file-using-spark-submit)
+* [Featurization for transfer learning](https://docs.databricks.com/applications/machine-learning/preprocess-data/transfer-learning-tensorflow.html)
 * AWS :
 * [AWS S3 access keys](https://medium.com/@shamnad.p.s/how-to-create-an-S3-bucket-and-aws-access-key-id-and-secret-access-key-for-accessing-it-5653b6e54337)
 * EC2, SSH :
 * [Change the instance type of an existing EBS backed instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-resize.html)
 * [Installer OpenSSH sur Windows](https://docs.microsoft.com/fr-fr/windows-server/administration/openssh/openssh_install_firstuse)
+* [Running Jupyter Notebooks in Cron](https://dbusteed.github.io/running-jupyter-notebooks-in-cron/)
 * Disk full :
 * [How to increase the AWS Disk Volume (EBS) on EC2 in simple steps for Ubuntu?](https://medium.com/geekculture/how-to-increase-the-aws-disk-volume-ebs-on-ec2-in-simple-steps-for-ubuntu-7c3759468b38)
 * [Unable to growpart because no space left](https://stackoverflow.com/questions/59420015/unable-to-growpart-because-no-space-left)
@@ -69,7 +75,7 @@ sudo apt install python3-notebook jupyter jupyter-core python-ipykernel
 ```
 * Installation des librairies python nécessaires au projet sur la machine virtuelle : voir fichier requirements.txt
 ```
-pip3 install boto3 pillow torch torchvision tqdm
+pip3 install boto3 pillow tensorflow torch torchvision tqdm
 ```
 * Installation des librairie Java / Scala nécessaires pour accéder au stockage AWS S3 via Spark / Hadoop :
 ```
@@ -198,6 +204,7 @@ On souhaite réaliser la même opération mais avec un Ubuntu hébergé sur EC2 
 ![lancer-instance-ec2-type-keys](/Images/ec2-new-instance-type-keys.PNG)
 * Résumé de la configuration avant le lancement de l'instance
 ![lancer-instance-ec2-summary](/Images/ec2-new-instance-summary.PNG)
+* Association d'un adresse IP élastique statique
 
 ## Connexion avec [OpenSSH](https://docs.microsoft.com/fr-fr/windows-server/administration/openssh/openssh_install_firstuse) et paire de clés sécurisées [Connect to your Linux instance using an SSH client](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html)
 * Vérifier si les composants OpenSSH Client et OpenSSH Server sont installés dans "Paramètres", sélectionnez "Applications > Applications et fonctionnalités", puis "Fonctionnalités facultatives", sinon les installer.
@@ -223,7 +230,7 @@ if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyCon
 ```
 * Dans mon cas :
 ```
-# > ssh -i C:/Users/disch/Documents/OpenClassrooms/Workspace/20220606_Projet_8_Deployez_un_modele_dans_le_cloud/Projet_8/paire-cles-cloud-fruits-P8.pem ubuntu@35.180.41.4
+# > ssh -i C:/Users/disch/Documents/OpenClassrooms/Workspace/20220606_Projet_8_Deployez_un_modele_dans_le_cloud/Projet_8/paire-cles-cloud-fruits-P8.pem ubuntu@15.188.105.71
 ```
 ![connect-ec2-ssh](/Images/ec2-ssh-connection-cleaned.png)
 * Création d'un instantané de l'état initial du disque de cette machine EC2 avant de procéder aux installations et à la configuration.
@@ -253,7 +260,7 @@ c.NotebookApp.port = 8888 #same port number as configured in SG setup.
 ```
 > jupyter notebook --allow-root
 ```
-* Accès à Jupyter Notebook avec l'url https://<IP-PUBLIQUE-EC2>:8888/tree et saisi du mot de passe pour se connecter [Mon URL JUPYTER EC2](https://35.180.41.4:8888/tree)
+* Accès à Jupyter Notebook avec l'url https://IP-PUBLIQUE-INSTANCE-EC2:8888/tree et saisi du mot de passe pour se connecter [Mon URL JUPYTER EC2](https://15.188.105.71:8888/tree)
 
 ## Configuration de Spark pour accéder à S3
 Voir la description de l'étape du chapitre II.
@@ -269,7 +276,7 @@ echo "export PYTHONPATH=/root/anaconda3/bin/python" >> ~/.bashrc
 ```
 echo "export PYSPARK_PYTHON=/root/anaconda3/bin/python" >> ~/.bashrc
 echo "export PYSPARK_DRIVER_PYTHON='jupyter'" >> ~/.bashrc
-echo "export PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser --port=8888'" >> ~/.bashrc
+echo "export PYSPARK_DRIVER_PYTHON_OPTS='notebook --allow-root --no-browser --port=8888'" >> ~/.bashrc
 ```
 
 ## Réutilisation du code dans notebook PySpark pour lire les fichiers sur un bucket S3 (SDK boto3 ou API S3a)
@@ -277,11 +284,11 @@ echo "export PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser --port=8888'" >> 
 ```
 mkdir /home/ubuntu/Notebooks
 chmod 755 /home/ubuntu/Notebooks
-scp -i C:/Users/disch/Documents/OpenClassrooms/Workspace/20220606_Projet_8_Deployez_un_modele_dans_le_cloud/Projet_8/paire-cles-cloud-fruits-P8.pem -r "C:/Users/disch/Documents/OpenClassrooms/Workspace/20220606_Projet_8_Deployez_un_modele_dans_le_cloud/Projet_8/Git/cloud-fruits-P8/Code" ubuntu@35.180.41.4:/home/ubuntu/Notebooks/
+scp -i C:/Users/disch/Documents/OpenClassrooms/Workspace/20220606_Projet_8_Deployez_un_modele_dans_le_cloud/Projet_8/paire-cles-cloud-fruits-P8.pem -r "C:/Users/disch/Documents/OpenClassrooms/Workspace/20220606_Projet_8_Deployez_un_modele_dans_le_cloud/Projet_8/Git/cloud-fruits-P8/Code" ubuntu@15.188.105.71:/home/ubuntu/Notebooks/
 
 mkdir /home/ubuntu/fruits-360-dataset
 chmod 755 /home/ubuntu/fruits-360-dataset
-scp -i C:/Users/disch/Documents/OpenClassrooms/Workspace/20220606_Projet_8_Deployez_un_modele_dans_le_cloud/Projet_8/paire-cles-cloud-fruits-P8.pem -r "C:/Users/disch/Documents/OpenClassrooms/Workspace/20220606_Projet_8_Deployez_un_modele_dans_le_cloud/Projet_8/Git/cloud-fruits-P8/Fruits-360-Dataset/LightTraining" ubuntu@35.180.41.4:/home/ubuntu/fruits-360-dataset/LightTraining
+scp -i C:/Users/disch/Documents/OpenClassrooms/Workspace/20220606_Projet_8_Deployez_un_modele_dans_le_cloud/Projet_8/paire-cles-cloud-fruits-P8.pem -r "C:/Users/disch/Documents/OpenClassrooms/Workspace/20220606_Projet_8_Deployez_un_modele_dans_le_cloud/Projet_8/Git/cloud-fruits-P8/Fruits-360-Dataset/LightTraining" ubuntu@15.188.105.71:/home/ubuntu/fruits-360-dataset/LightTraining
 ```
 * Création d'une SparkSession, lecture des images du bucket cloud-fruits-p8-bucket et application de l'encodage avant de les traiter avec le modèle CNN Transfer Learning sans la dernière couche.
 * Un fichier output.parquet est généré, il contient les features de chaque image, prêts à être envoyé dans une couche de classification pour prédire le type de fruit. Il est stocké dans le dossier output_features_and_images_processed/%Y%m%d-%H%M%S-batch/features_to_classify.
@@ -290,4 +297,84 @@ scp -i C:/Users/disch/Documents/OpenClassrooms/Workspace/20220606_Projet_8_Deplo
 
 **Je parviens à exécuter du code spark sur une machine Ubuntu hébergée sur EC2 AWS qui traite des données hébergées sur un bucket S3 AWS. Un fichier parquet est généré en sortie de process.**
 **Celui-ci contient les features calculées par le CNN Transfer Learning, prêtes à être ingérées par une couche de classification qui permettra de déterminer le type de fruit.**
+
+## Automatisation de l'exécution du script par Cron (Job toutes les 10 minutes)
+* [Running Jupyter Notebooks in Cron](https://dbusteed.github.io/running-jupyter-notebooks-in-cron/)
+* [Pyspark: Error executing Jupyter command while running a file using spark-submit](https://stackoverflow.com/questions/46507887/pyspark-error-executing-jupyter-command-while-running-a-file-using-spark-submit)
+* Création d'un fichier exécutable run_notebook dans /home/ubuntu/ :
+```
+#!/bin/bash
+
+# check if the 1st argument exists and
+# is a Jupyter Notebook
+if [[ -f $1 ]] && [[ $1 == *.ipynb ]]; then
+
+    # get the name of the notebook
+    nb=$(basename -s .ipynb $1)
+
+    # check if a 2nd argument exists and
+    # if it's a valid directory. if so,
+    # we'll save the log file here. otherwise
+    # we'll write the log to /dev/null
+    if [[ ! -z $2 ]] && [[ -d $2 ]]; then
+        log_output=$2/"$nb.log"
+    else
+        log_output=/dev/null
+    fi
+
+    # 1. convert the script and save in /Notebooks
+    # 2. deactivate unset PYSPARK_DRIVER_PYTHON
+    # 3. submit the script and redirect the output
+    # 4. delete the Python file
+    # 5. deactivate unset PYSPARK_DRIVER_PYTHON
+    /root/anaconda3/bin/jupyter nbconvert --to script $1 --output /home/ubuntu/Notebooks/$nb &> $log_output &&
+        unset PYSPARK_DRIVER_PYTHON &&
+        /opt/spark/bin/spark-submit --master local --py-files /home/ubuntu/Notebooks/encoder.py /home/ubuntu/Notebooks/"$nb.py" &>> $log_output &&
+        rm /home/ubuntu/Notebooks/"$nb.py" &&
+        export PYSPARK_DRIVER_PYTHON='jupyter'
+else
+    echo "ERROR: please provide a jupyter notebook"
+fi
+```
+* Ce script bash convertit le Notebook en script python "classique", prépare l'environnement d'exécution et exécute le job spark. Ensuite il nettoit l'environnement.
+
+* Pour lancer le script manuellement :
+```
+> /home/ubuntu/run_notebook /home/ubuntu/Notebooks/P8_PySpark_S3_Bucket.ipynb /home/ubuntu/logs
+```
+
+* Pour consulter les logs :
+```
+> less logs/P8_PySpark_S3_Bucket.log
+```
+
+* Pour nettoyer les logs:
+```
+> truncate -s 0 logs/P8_PySpark_S3_Bucket.log
+```
+
+* Pour automatiser le lancement de ce script à l'aide de CRON, pour un lancement par exemple toutes les heures :
+```
+> crontab -e
+
+*/10 * * * * /home/ubuntu/run_notebook /home/ubuntu/Notebooks/P8_PySpark_S3_Bucket.ipynb /home/ubuntu/logs
+```
+
+* Constater dans le fichier de log CRON que le script s'exécute toutes les 10 minutes :
+```
+> grep -i "P8_PySpark_S3_Bucket" /var/log/syslog
+Jul  4 08:00:01 ip-172-31-38-2 CRON[22863]: (root) CMD (/home/ubuntu/run_notebook /home/ubuntu/Notebooks/P8_PySpark_S3_Bucket.ipynb /home/ubuntu/logs)
+Jul  4 08:10:01 ip-172-31-38-2 CRON[22929]: (root) CMD (/home/ubuntu/run_notebook /home/ubuntu/Notebooks/P8_PySpark_S3_Bucket.ipynb /home/ubuntu/logs)
+```
+
+* Constater dans le fichier de log SPARK/PYTHON que le script s'exécute correctement :
+```
+> less logs/P8_PySpark_S3_Bucket.log
+```
+
+**Toutes les 10 minutes, un script python/spark est exécuté par CRON sur une machine Ubuntu hébergée sur EC2 AWS qui traite des données hébergées sur un bucket S3 AWS. Un fichier parquet est généré en sortie de process.**
+**Celui-ci contient les features calculées par le CNN Transfer Learning, prêtes à être ingérées par une couche de classification qui permettra de déterminer le type de fruit.**
+
+
+
 

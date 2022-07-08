@@ -1,8 +1,9 @@
-requests
-pyspark
-torch
-torchvision
 boto3
 numpy
 pillow
+pyspark
+requests
+tensorflow
+torch
+torchvision
 tqdm
