@@ -359,6 +359,7 @@ fi
 
 */10 * * * * /home/ubuntu/run_notebook /home/ubuntu/Notebooks/P8_PySpark_S3_Bucket.ipynb /home/ubuntu/logs
 ```
+![ligne-crontab](/Images/ligne-crontab.PNG)
 
 * Constater dans le fichier de log CRON que le script s'exécute toutes les 10 minutes :
 ```
@@ -375,6 +376,21 @@ Jul  4 08:10:01 ip-172-31-38-2 CRON[22929]: (root) CMD (/home/ubuntu/run_noteboo
 **Toutes les 10 minutes, un script python/spark est exécuté par CRON sur une machine Ubuntu hébergée sur EC2 AWS qui traite des données hébergées sur un bucket S3 AWS. Un fichier parquet est généré en sortie de process.**
 **Celui-ci contient les features calculées par le CNN Transfer Learning, prêtes à être ingérées par une couche de classification qui permettra de déterminer le type de fruit.**
 
+* Pour télécharger les fichiers AWS S3 en local Windows :
+* [Installer AWS CLI pour Winndows](https://aws.amazon.com/fr/cli/)
+* Configurer :
+```
+> aws configure
+```
+![configure-aws-cli](/Images/configure-aws-cli.png)
 
+* Exécuter :
+```
+> aws s3 cp s3://BUCKET-S3/folder localDir --recursive
+```
+* Pour moi :
+```
+> aws s3 cp s3://cloud-fruits-p8-bucket/output_features_and_images_processed/20220706-075016-batch C:\Users\disch\Documents\OpenClassrooms\Workspace\20220606_Projet_8_Deployez_un_modele_dans_le_cloud\Projet_8\Git\cloud-fruits-P8\Output\20220706-075016-batch --recursive
+```
 
 
